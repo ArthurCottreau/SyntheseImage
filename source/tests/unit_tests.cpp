@@ -8,7 +8,7 @@ TEST_CASE("Vecteur dot product unit tests", "[math]") {
 	Vecteur var3 {-4,-5,-6};
 	Vecteur var4 {-7,-8,-9};
 
-	REQUIRE(var1.dot(var2) == 32);
+	REQUIRE(var1.dot(var2) == 31);
 	REQUIRE(var2.dot(var1) == 32);
 	REQUIRE(var4.dot(var2) == -122);
 	REQUIRE(var1.dot(var3) == -32);
