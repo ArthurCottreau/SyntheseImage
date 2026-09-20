@@ -1,0 +1,28 @@
+name: Tests unitaire Catch2
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install build dependencies
+      run: |
+        sudo apt-get install build-essential
+    
+    - name: Install catch2
+      run: |
+        sudo apt-get install catch2
+
+    - name: Build and run test files
+      run: |
+        make unit_tests
