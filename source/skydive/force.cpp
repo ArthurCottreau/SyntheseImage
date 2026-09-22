@@ -7,7 +7,7 @@ Force::Force(const double g)
 
 Vecteur Force::f_g(const double mass)
 {
-    return - mass * grav * DOWN;
+    return - mass * grav * Direction::DOWN;
 }
 
 Vecteur Force::f_d(const double mass, const Vecteur vitesse, const double coef_drag)

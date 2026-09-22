@@ -15,7 +15,6 @@ TEST_CASE("Vecteur dot product unit tests", "[math]") {
 	REQUIRE(var3.dot(var1) == -32);
 }
 
-
 TEST_CASE("Vecteur normalization unit tests", "[math]") {
     Vecteur test1 {0,0,0};
     std::optional<Vecteur> test2 = test1.normalize();

@@ -1,8 +1,8 @@
+#include <bits/stdc++.h>
 #include "image.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
-
 
 Image::Image(const int w, const int h)
 {
@@ -12,21 +12,27 @@ Image::Image(const int w, const int h)
     pixels.resize(w * h * Image::CHANNELS); // 3 for the number of channels
 }
 
-void Image::set_pixel(const int x, const int y, const Vecteur c)
+void Image::set_pixel(const int x, const int y, const RGBColor c)
 {
     int pos = (y * width + x) * Image::CHANNELS;
 
-    pixels[pos + 0] = c.x;
-    pixels[pos + 1] = c.y;
-    pixels[pos + 2] = c.z;
+    pixels[pos + 0] = c.r;
+    pixels[pos + 1] = c.g;
+    pixels[pos + 2] = c.b;
 }
 
 void Image::save(const char* file_name)
 {
+    // Tonemapping conversion de valeur [0,1] vers des valuers [0,255]
+    Image result(width, height);
+    transform(pixels.begin(), pixels.end(), result.pixels.begin(),
+        [](uint8_t n) { return std::clamp(n * 255, 0, 255); });
+
+    // Sauvegarde l'image finale
     stbi_write_png(
         file_name,
         width, height, Image::CHANNELS,
-        pixels.data(),
+        result.pixels.data(),
         width * Image::CHANNELS
     );
 }
