@@ -17,10 +17,10 @@ struct Ray {
 
 std::optional<float> intersect(const Ray ray, const Sphere sphere)
 {
-    const float a = ray.direction.norm_squared();
     const Vecteur co = ray.origin - sphere.center;
+    const float a = ray.direction.dot(ray.direction);
     const float b = 2 * ray.direction.dot(co);
-    const float c = co.norm_squared() - sphere.radius * sphere.radius;
+    const float c = co.dot(co) - sphere.radius * sphere.radius;
 
     const float delta = b * b - 4 * a * c;
 
@@ -40,5 +40,5 @@ std::optional<float> intersect(const Ray ray, const Sphere sphere)
         }
     }
 
-    return {};
+    return std::nullopt;;
 }

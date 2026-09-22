@@ -11,11 +11,6 @@ double Vecteur::norm() const
     return std::sqrt(this->dot(*this));
 }
 
-double Vecteur::norm_squared() const
-{
-    return x * x + y * y + z * z;
-}
-
 std::optional<Vecteur> Vecteur::normalize() const
 {
     const double n = norm();

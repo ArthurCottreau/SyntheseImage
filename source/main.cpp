@@ -17,9 +17,9 @@ int main()
         for (int x = 0; x < img.width; x++) {
 
             const Ray ray{Vecteur{x + 0.5f, y + 0.5f, 0}, Direction::DOWN};
-            const auto it = intersect(ray, sphere);
+            const std::optional<float> hit = intersect(ray, sphere);
 
-            if (it)
+            if (hit)
             {
                 img.set_pixel(x, y, sphere.emission);
             }
