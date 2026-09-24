@@ -13,3 +13,5 @@ struct Color
     static constexpr RGBColor WHITE = {1, 1, 1};
     static constexpr RGBColor BLACK = {0, 0, 0};
 };
+
+RGBColor operator*(const RGBColor c, const float v);

@@ -9,7 +9,7 @@ struct Image
     static const int CHANNELS = 3;
 
     int width, height;
-    std::vector<uint8_t> pixels;
+    std::vector<float> pixels;
 
     Image(const int w, const int h);
     void set_pixel(const int x, const int y, const RGBColor c);

@@ -4,15 +4,22 @@
 #include "color.h"
 #include <cmath>
 
-struct Sphere {
+struct Sphere
+{
   Vecteur center;
   RGBColor emission;
   float radius;
 };
 
-struct Ray {
+struct Ray
+{
   Vecteur origin;
   Vecteur direction;
+};
+
+struct Scene
+{
+    std::vector<Sphere> spheres;
 };
 
 std::optional<float> intersect(const Ray ray, const Sphere sphere)
@@ -41,4 +48,27 @@ std::optional<float> intersect(const Ray ray, const Sphere sphere)
     }
 
     return std::nullopt;;
+}
+
+std::optional<float> intersect(const Ray ray, const Scene scene)
+{
+    std::optional<float> scene_it{};
+
+    for (auto &&sphere : scene.spheres)
+    {
+        std::optional<float> it = intersect(ray,sphere);
+
+        if (it)
+        {
+            if (it && scene_it){
+                scene_it = std::optional<float>(std::min(it.value(), scene_it.value()));
+            }
+            else if (it)
+            {
+                scene_it = it;
+            }
+        }
+    }
+
+    return scene_it;
 }

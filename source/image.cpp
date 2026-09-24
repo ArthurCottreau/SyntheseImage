@@ -24,15 +24,17 @@ void Image::set_pixel(const int x, const int y, const RGBColor c)
 void Image::save(const char* file_name)
 {
     // Tonemapping conversion de valeur [0,1] vers des valuers [0,255]
-    Image result(width, height);
-    transform(pixels.begin(), pixels.end(), result.pixels.begin(),
-        [](uint8_t n) { return std::clamp(n * 255, 0, 255); });
+    std::vector<u_int8_t> result;
+    result.resize(width * height * Image::CHANNELS);
+
+    transform(pixels.begin(), pixels.end(), result.begin(),
+        [](float n) { return std::clamp((int)(n * 255), 0, 255); });
 
     // Sauvegarde l'image finale
     stbi_write_png(
         file_name,
         width, height, Image::CHANNELS,
-        result.pixels.data(),
+        result.data(),
         width * Image::CHANNELS
     );
 }
