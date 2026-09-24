@@ -6,24 +6,27 @@ using namespace std;
 
 int main()
 {
-    const int W = 640;
-    const int H = 480;
+    const int WIDTH = 640;
+    const int HEIGHT = 480;
 
-    Image img(W,H);
-    
-    const Sphere sphere {Vecteur{W / 2, H / 2, 500}, Color::WHITE, 200}; 
+    Image img(WIDTH,HEIGHT);
 
     const Scene scene {
         {
-            Sphere{Vecteur{W / 2, H / 2, 300}, Color::WHITE, 50},
-            Sphere{Vecteur{W / 2, H / 2, 500}, Color::WHITE, 200},
-            Sphere{Vecteur{W / 2, H / 2, 1000}, Color::WHITE, 220}
+            Sphere{{WIDTH / 2, HEIGHT / 2, 300}, Color::WHITE, 50},
+            Sphere{{WIDTH / 2, HEIGHT / 2, 500}, Color::WHITE, 200},
+            Sphere{{WIDTH / 2, HEIGHT / 2, 1000}, Color::WHITE, 400}
         }
     };
 
-    for (int y = 0; y < img.height; y++) {
-        for (int x = 0; x < img.width; x++) {
-            const Ray ray{Vecteur{x + 0.5f, y + 0.5f, 0}, Direction::DOWN};
+    const Vecteur focal = {WIDTH / 2, HEIGHT / 2, -2400};
+
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+
+            const Vecteur pixel = {x + 0.5f, y + 0.5f, 0};
+            std::optional<Vecteur> direction = (pixel - focal).normalize();
+            const Ray ray{pixel, direction.value()};
             const std::optional<float> hit = intersect(ray, scene);
 
             if (hit)

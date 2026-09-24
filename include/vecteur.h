@@ -10,18 +10,6 @@ struct Vecteur
     std::optional<Vecteur> normalize() const;
 };
 
-struct Direction
-{
-    Vecteur vec;
-
-    double dot(const Direction other) const;
-    double norm() const;
-    std::optional<Direction> normalize() const;
-    
-    static constexpr Vecteur UP = {0, 0, -1};
-    static constexpr Vecteur DOWN = {0, 0, 1};
-};
-
 Vecteur operator+(const Vecteur a, const Vecteur b);
 Vecteur operator-(const Vecteur a, const Vecteur b);
 Vecteur operator*(const Vecteur a, const Vecteur b);
