@@ -15,3 +15,5 @@ struct Color
 };
 
 RGBColor operator*(const RGBColor c, const float v);
+RGBColor operator/(const RGBColor c, const float f);
+RGBColor operator+(const RGBColor a, const RGBColor b);
