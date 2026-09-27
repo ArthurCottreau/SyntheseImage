@@ -1,7 +1,7 @@
 #include <iostream>
 #include <optional>
 #include "image.h"
-#include "shape.h"
+#include "ray.h"
 #include "random.h"
 using namespace std;
 
@@ -37,22 +37,12 @@ int main()
                 const Vecteur pixel = {(x + offset.x) + 0.5f, (y + offset.y) + 0.5f, 0};
                 std::optional<Vecteur> direction = (pixel - focal).normalize();
                 const Ray ray{pixel, direction.value()};
-                const std::optional<float> hit = intersect(ray, scene);
+                RGBColor color = ray_color(ray, scene);
 
-                if (hit)
-                {
-                    const float d_inv = 1 / hit.value() * 200;
-                    RGBColor d_color = {d_inv, d_inv, d_inv};
-                    tmp = tmp + d_color;
-                }
-                else
-                {
-                    tmp = tmp + Color::RED;
-                }
+                tmp = tmp + color;
             }
 
-            const RGBColor f_color = tmp / SAMPLES;
-            img.set_pixel(x, y, f_color);
+            img.set_pixel(x, y, tmp / SAMPLES);
         }
     }
 
