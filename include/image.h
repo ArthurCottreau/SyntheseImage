@@ -13,5 +13,5 @@ struct Image
 
     Image(const int w, const int h);
     void set_pixel(const int x, const int y, const RGBColor c);
-    void save(const char* file_name);
+    void save(const char* file_name) const;
 };

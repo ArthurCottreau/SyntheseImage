@@ -4,7 +4,7 @@ CC := g++
 SOURCEDIR := source/
 INCLUDEDIR := include/
 
-CFLAGS := -I $(INCLUDEDIR)
+CFLAGS := -I $(INCLUDEDIR) -O
 LDFLAGS := -lCatch2Main -lCatch2
 
 SOURCES := $(wildcard $(SOURCEDIR)/*.cpp) # Retrieves all .cpp files

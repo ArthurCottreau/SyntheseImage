@@ -9,20 +9,20 @@ struct Ray
   Vecteur direction;
 };
 
-std::optional<float> intersect(const Ray ray, const Sphere sphere)
+std::optional<float> intersect(const Ray &ray, const Sphere &sphere)
 {
     const Vecteur co = ray.origin - sphere.center;
     const float a = ray.direction.dot(ray.direction);
-    const float b = 2 * ray.direction.dot(co);
+    const float h = ray.direction.dot(co);
     const float c = co.dot(co) - sphere.radius * sphere.radius;
 
-    const float delta = b * b - 4 * a * c;
+    const float delta = h * h - a * c;
 
     if (delta >= 0)
     {
         const float sqrtdelta = std::sqrt(delta);
-        float ta = (-b - sqrtdelta) / (2 * a);
-        float tb = (-b + sqrtdelta) / (2 * a);
+        float ta = (-h - sqrtdelta) / a;
+        float tb = (-h + sqrtdelta) / a;
 
         if (ta > 0)
         {
@@ -37,7 +37,7 @@ std::optional<float> intersect(const Ray ray, const Sphere sphere)
     return std::nullopt;;
 }
 
-std::optional<float> intersect(const Ray ray, const Scene scene)
+std::optional<float> intersect(const Ray &ray, const Scene &scene)
 {
     std::optional<float> scene_it{};
 
@@ -60,7 +60,7 @@ std::optional<float> intersect(const Ray ray, const Scene scene)
     return scene_it;
 }
 
-RGBColor ray_color(const Ray ray, const Scene scene)
+RGBColor ray_color(const Ray &ray, const Scene &scene)
 {
     const std::optional<float> hit = intersect(ray, scene);
 
@@ -70,8 +70,6 @@ RGBColor ray_color(const Ray ray, const Scene scene)
         RGBColor color = {d_inv, d_inv, d_inv};
         return color;
     }
-    else
-    {
-        return Color::RED;
-    }
+
+    return Color::RED;
 }

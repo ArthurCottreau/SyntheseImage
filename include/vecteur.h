@@ -5,7 +5,7 @@ struct Vecteur
 {
     double x,y,z;
 
-    double dot(const Vecteur other) const;
+    double dot(const Vecteur &other) const;
     double norm() const;
     std::optional<Vecteur> normalize() const;
 };

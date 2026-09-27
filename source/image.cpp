@@ -21,7 +21,7 @@ void Image::set_pixel(const int x, const int y, const RGBColor c)
     pixels[pos + 2] = c.b;
 }
 
-void Image::save(const char* file_name)
+void Image::save(const char* file_name) const
 {
     // Tonemapping conversion de valeur [0,1] vers des valuers [0,255]
     std::vector<u_int8_t> result;

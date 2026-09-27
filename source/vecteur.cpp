@@ -1,7 +1,7 @@
 #include "vecteur.h"
 #include <cmath>
 
-double Vecteur::dot(const Vecteur other) const
+double Vecteur::dot(const Vecteur &other) const
 {
     return x * other.x + y * other.y + z * other.z;
 }
