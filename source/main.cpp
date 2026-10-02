@@ -46,7 +46,7 @@ int main()
         }
     }
 
-    img.save("output");
+    img.save("output.png");
 
     return 0;
 };

@@ -11,20 +11,33 @@ SOURCES := $(wildcard $(SOURCEDIR)/*.cpp) # Retrieves all .cpp files
 TEST_SOURCES := source/tests/unit_tests.cpp source/vecteur.cpp
 TARGET := main # Executable name
 
-# Rules get executed even if files of those names exist
-.PHONY: all build
+COLOUR_GREEN := \033[0;32m
+END_COLOUR := \033[0m
 
-# First rule is the default so 'make all' and 'make build' are identical
-all: unit_tests build
+# Rules get executed even if files of those names exist
+.PHONY: all unit_tests benchmark build clean
+
+# First rule is the default
+all: unit_tests benchmark build
 
 unit_tests:
 	mkdir -p $@
 	$(CC) $(TEST_SOURCES) -o $@/$(TARGET) $(CFLAGS) $(LDFLAGS)
 	./$@/main
 
+benchmark:
+	mkdir -p $@
+	$(CC) $(SOURCES) -o $@/$(TARGET) $(CFLAGS) -pg
+	cd $@; { time ./$(TARGET); } 2> time.txt
+	cd $@; gprof $(TARGET) gmon.out > $@.txt # Creates benchmark data
+
+	@echo -e "$(COLOUR_GREEN)"
+	@xargs echo < $@/time.txt # Reads out time it takes to run app
+	@echo -e "$(END_COLOUR)"
+
 build:
 	mkdir -p $@
-	$(CC) $(SOURCES) -o $@/$(TARGET) $(CFLAGS)
+	$(CC) $(SOURCES) -o $@/$(TARGET) $(CFLAGS) -flto # With LTO
 
 clean:
-	rm -r unit_tests build
+	rm -r -f unit_tests benchmark build

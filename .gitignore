@@ -1,3 +1,7 @@
-build/
-unit_tests/
+# For editor generated folders
 .vscode/
+
+# For Makefile generated folders
+build/
+benchmark/
+unit_tests/
